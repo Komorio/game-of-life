@@ -38,3 +38,17 @@ impl App {
             .expect("Fail to clear screen.");
     }
 }
+
+pub struct Vector2 {
+    pub x: u8,
+    pub y: u8,
+}
+
+impl Vector2 {
+    pub fn new() -> Vector2 {
+        Vector2 { x: 0, y: 0 }
+    }
+    pub fn from(x: u8, y: u8) -> Vector2 {
+        Vector2 { x, y }
+    }
+}
