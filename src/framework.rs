@@ -1,5 +1,8 @@
 use std::{thread::sleep, time::Duration};
 
+const MAP_WIDTH: u8 = 40;
+const MAP_HEIGHT: u8 = 15;
+
 pub struct App {
     progress: bool,
     frame: Duration,
