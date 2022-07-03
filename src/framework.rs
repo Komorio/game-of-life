@@ -6,7 +6,7 @@ const MAP_HEIGHT: u8 = 15;
 pub struct App {
     progress: bool,
     frame: Duration,
-    index: u8,
+    map: Vec<Vec<Cell>>,
 }
 
 impl App {
@@ -14,7 +14,7 @@ impl App {
         App {
             progress: true,
             frame: Duration::from_secs_f32(1.0 / 30.0),
-            index: 0,
+            map: App::create_map(),
         }
     }
 
@@ -27,12 +27,18 @@ impl App {
         }
     }
 
-    fn update(&mut self) {
-        self.index += 1;
-    }
+    fn update(&mut self) {}
 
     fn render(&self) {
-        println!("{}", self.index);
+        for y in 0..(MAP_HEIGHT as usize) {
+            let mut x_str = String::new();
+
+            for x in 0..(MAP_WIDTH as usize) {
+                x_str.push(self.map[y][x].character);
+            }
+
+            println!("{}", x_str);
+        }
     }
 
     fn release_render(&self) {
@@ -40,6 +46,30 @@ impl App {
             .status()
             .expect("Fail to clear screen.");
     }
+
+    fn create_map() -> Vec<Vec<Cell>> {
+        let mut map: Vec<Vec<Cell>> = vec![];
+
+        for y in 0..MAP_HEIGHT {
+            let mut x_map: Vec<Cell> = vec![];
+
+            for x in 0..MAP_WIDTH {
+                x_map.push(Cell {
+                    character: '#',
+                    position: Vector2::from(x, y),
+                });
+            }
+
+            map.push(x_map);
+        }
+
+        map
+    }
+}
+
+pub struct Cell {
+    pub character: char,
+    pub position: Vector2,
 }
 
 pub struct Vector2 {
